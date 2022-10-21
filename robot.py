@@ -114,6 +114,20 @@ class Robot:
         elif self.facing == Robot.EAST and self.x < 4:
             self.x += 1
 
+    def charge(self) -> None:
+        if not self.placed:
+            print("Place the robot in the position first")
+            return
+
+        if self.facing == Robot.NORTH and self.y < 4:
+            self.y = Robot.MAX_Y
+        elif self.facing == Robot.SOUTH and self.y > 0:
+            self.y = Robot.MIN_Y
+        elif self.facing == Robot.WEST and self.x > 0:
+            self.x = Robot.MIN_X
+        elif self.facing == Robot.EAST and self.x < 4:
+            self.x = Robot.MAX_X
+
     def report(self) -> None:
         if self.placed:
             print(f"{self.x},{self.y},{self.facing}")
@@ -146,6 +160,8 @@ class Robot:
             self.move()
         elif command_key == "REPORT":
             self.report()
+        elif command_key == "CHARGE":
+            self.charge()
         else:
             print(f"invalid command: {command}")
 
